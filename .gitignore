@@ -1,5 +1,11 @@
 HELP.md
 target/
+
+*.csv
+*.log
+.mvn/*
+*.cmd
+
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
@@ -32,6 +38,3 @@ build/
 ### VS Code ###
 .vscode/
 
-*.csv
-*.log
-.mvn

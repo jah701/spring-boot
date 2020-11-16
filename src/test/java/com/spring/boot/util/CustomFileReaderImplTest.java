@@ -6,7 +6,8 @@ import org.junit.jupiter.api.Test;
 
 class CustomFileReaderImplTest {
     private static final String WRONG_PATH = "";
-    private static final String EMPTY_PATH = "src/test/java/com/spring/boot/resources/empty-file.txt";
+    private static final String EMPTY_PATH =
+            "src/test/java/com/spring/boot/resources/empty-file.txt";
 
     private static CustomFileReader customFileReader;
 
