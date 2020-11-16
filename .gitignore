@@ -3,7 +3,6 @@ target/
 
 *.csv
 *.log
-.mvn/*
 *.cmd
 
 !.mvn/wrapper/maven-wrapper.jar
@@ -37,4 +36,3 @@ build/
 
 ### VS Code ###
 .vscode/
-
