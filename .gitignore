@@ -4,7 +4,6 @@ target/
 *.csv
 *.log
 *.cmd
-*.yml
 .mvn
 
 !.mvn/wrapper/maven-wrapper.jar
