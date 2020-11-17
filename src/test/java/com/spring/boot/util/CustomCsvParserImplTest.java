@@ -1,14 +1,10 @@
 package com.spring.boot.util;
 
-import com.spring.boot.model.Review;
+import com.spring.boot.model.dto.Review;
+import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class CustomCsvParserImplTest {
     private static final String WRONG_PATH = "";
@@ -23,7 +19,8 @@ class CustomCsvParserImplTest {
 
     @Test
     public void wrongPathTest() {
-        Assertions.assertThrows(RuntimeException.class, () -> customCsvParser.csvToReview(WRONG_PATH));
+        Assertions.assertThrows(RuntimeException.class,
+                () -> customCsvParser.csvToReview(WRONG_PATH));
     }
 
     @Test

@@ -6,7 +6,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CustomFileReaderImpl implements CustomFileReader {
     @Override
     public List<String> readFile(String path) {

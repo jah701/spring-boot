@@ -1,6 +1,6 @@
 package com.spring.boot.util;
 
-import com.spring.boot.model.Review;
+import com.spring.boot.model.dto.Review;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,7 +8,9 @@ import java.util.List;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CustomCsvParserImpl implements CustomCsvParser {
     private CSVFormat format;
     private CSVParser csvParser;
