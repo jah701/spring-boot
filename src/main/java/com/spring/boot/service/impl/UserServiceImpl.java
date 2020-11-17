@@ -1,5 +1,7 @@
 package com.spring.boot.service.impl;
 
+import java.util.List;
+import java.util.Optional;
 import com.spring.boot.model.User;
 import com.spring.boot.repository.UserRepository;
 import com.spring.boot.service.UserService;
@@ -19,4 +21,16 @@ public class UserServiceImpl implements UserService {
     public void add(User user) {
         userRepository.save(user);
     }
+
+    @Override
+    public void addAll(List<User> users) {
+        userRepository.saveAll(users);
+    }
+
+    @Override
+    public List<Optional<User>> getMostActiveUsers() {
+        return null;
+    }
+
+
 }

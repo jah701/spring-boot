@@ -11,8 +11,6 @@ public class CommentMapper {
     public Comment map(Review review) {
         Comment comment = new Comment();
         comment.setUserId(review.getUserId());
-        comment.setHelpfulnessNumerator(review.getHelpfulnessNumerator());
-        comment.setHelpfulnessDenominator(review.getHelpfulnessDenominator());
         comment.setScore(review.getScore());
         comment.setSummary(review.getSummary());
         comment.setText(review.getText());
