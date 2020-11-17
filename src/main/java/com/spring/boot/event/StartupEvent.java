@@ -4,7 +4,11 @@ import java.io.BufferedInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
+
+import com.spring.boot.model.Role;
+import com.spring.boot.service.RoleService;
 import lombok.extern.log4j.Log4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
@@ -18,8 +22,21 @@ public class StartupEvent implements ApplicationListener<ApplicationReadyEvent> 
     @Value("${load.into.path}")
     private String loadedFile;
 
+    private final RoleService roleService;
+
+    public StartupEvent(RoleService roleService) {
+        this.roleService = roleService;
+    }
+
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
+        log.info("Injecting data . . .");
+        Role user = Role.of("USER");
+        Role admin = Role.of("ADMIN");
+        roleService.add(user);
+        roleService.add(admin);
+        log.info("Data was added successfully!");
+
         log.info("Startup Event method onApplicationEvent() started . . .");
         loadCsvFile(csvFileUrl, loadedFile);
         log.info("Startup Event method onApplicationEvent() finished successfully");
