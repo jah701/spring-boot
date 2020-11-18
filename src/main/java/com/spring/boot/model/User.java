@@ -21,6 +21,10 @@ public class User {
     private String externalId;
     private String name;
     private String password;
+    @Column(name = "helpfulness_numerator")
+    private String helpfulnessNumerator;
+    @Column(name = "helpfulness_denominator")
+    private String helpfulnessDenominator;
     @ManyToMany
     private Set<Role> roles;
 }

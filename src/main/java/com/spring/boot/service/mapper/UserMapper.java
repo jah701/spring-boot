@@ -23,6 +23,8 @@ public class UserMapper {
         user.setName(review.getProfileName());
         user.setPassword("1111");
         user.setExternalId(review.getUserId());
+        user.setHelpfulnessNumerator(review.getHelpfulnessNumerator());
+        user.setHelpfulnessDenominator(review.getHelpfulnessDenominator());
         user.setRoles(Set.of(roleService.getByRoleName("USER")));
         return user;
     }

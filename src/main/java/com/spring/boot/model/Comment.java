@@ -17,10 +17,6 @@ public class Comment {
     private Long id;
     @Column(name = "user_id")
     private String userId;
-    @Column(name = "helpfulness_numerator")
-    private String helpfulnessNumerator;
-    @Column(name = "helpfulness_denominator")
-    private String helpfulnessDenominator;
     private Long score;
     private Long time;
     @Column(length = 5000)
