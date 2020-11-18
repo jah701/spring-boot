@@ -17,8 +17,9 @@ public class CustomFileReaderImpl implements CustomFileReader {
             while ((line = reader.readLine()) != null) {
                 result.add(line);
             }
+            reader.close();
         } catch (FileNotFoundException e) {
-            throw new RuntimeException("Wrong file path", e);
+            throw new RuntimeException("Wrong file path " + path, e);
         } catch (IOException e) {
             throw new RuntimeException("Failed while reading file", e);
         }

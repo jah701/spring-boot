@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 class CustomFileReaderImplTest {
     private static final String WRONG_PATH = "";
+    private static final String CORRECT_PATH = "src/main/resources/file.csv";
     private static final String EMPTY_PATH =
             "src/test/java/com/spring/boot/resources/empty-file.txt";
 
@@ -24,5 +25,10 @@ class CustomFileReaderImplTest {
     @Test
     public void emptyFileRead() {
         Assertions.assertThrows(RuntimeException.class,() -> customFileReader.readFile(EMPTY_PATH));
+    }
+
+    @Test
+    public void correctPathTest() {
+        Assertions.assertEquals(10, customFileReader.readFile(CORRECT_PATH).size());
     }
 }
