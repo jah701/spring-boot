@@ -1,12 +1,14 @@
-package com.spring.boot.util;
+package util;
 
+import com.spring.boot.util.CustomFileReader;
+import com.spring.boot.util.CustomFileReaderImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 class CustomFileReaderImplTest {
     private static final String WRONG_PATH = "";
-    private static final String CORRECT_PATH = "src/main/resources/file.csv";
+    private static final String CORRECT_PATH = "src/test/java/resources/file.csv";
     private static final String EMPTY_PATH =
             "src/test/java/com/spring/boot/resources/empty-file.txt";
 
