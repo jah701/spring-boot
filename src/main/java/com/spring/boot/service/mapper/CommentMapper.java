@@ -13,6 +13,7 @@ public class CommentMapper {
         comment.setUserId(review.getUserId());
         comment.setScore(review.getScore());
         comment.setSummary(review.getSummary());
+        comment.setProductId(review.getProductId());
         comment.setText(review.getText());
         comment.setTime(review.getTime());
         return comment;

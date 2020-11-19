@@ -3,7 +3,6 @@ package com.spring.boot.model;
 import javax.persistence.*;
 
 import lombok.Data;
-
 import java.util.List;
 
 @Data
@@ -13,8 +12,9 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "external_id")
+    @Column(name = "product_id")
     private String externalId;
-    @ManyToMany
+    @OneToMany
+    @Column(name = "comment_id")
     private List<Comment> comments;
 }
