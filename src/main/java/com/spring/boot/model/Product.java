@@ -15,6 +15,6 @@ public class Product {
     private Long id;
     @Column(name = "external_id")
     private String externalId;
-    @OneToMany
+    @ManyToMany
     private List<Comment> comments;
 }
