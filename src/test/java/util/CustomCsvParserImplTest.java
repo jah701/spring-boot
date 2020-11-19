@@ -1,6 +1,6 @@
 package util;
 
-import com.spring.boot.model.Review;
+import com.spring.boot.dto.Review;
 import com.spring.boot.util.CustomCsvParser;
 import com.spring.boot.util.CustomCsvParserImpl;
 import java.util.List;

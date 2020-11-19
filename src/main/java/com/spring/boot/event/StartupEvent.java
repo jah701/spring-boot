@@ -19,10 +19,9 @@ public class StartupEvent implements ApplicationListener<ApplicationReadyEvent> 
     @Value("${load.into.path}")
     private String loadedFile;
 
-    private File existFile;
-
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
+        File existFile = null;
         if (!(existFile = new File(loadedFile)).exists()) {
             log.info("Loading CSV file. URL - " + csvFileUrl);
             loadCsvFile(csvFileUrl, loadedFile);

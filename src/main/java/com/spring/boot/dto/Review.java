@@ -1,6 +1,8 @@
-package com.spring.boot.model;
+package com.spring.boot.dto;
 
 import lombok.Data;
+
+import java.time.LocalDateTime;
 
 @Data
 public class Review {
@@ -11,7 +13,7 @@ public class Review {
     private String helpfulnessNumerator;
     private String helpfulnessDenominator;
     private Long score;
-    private Long time;
+    private LocalDateTime time;
     private String summary;
     private String text;
 }

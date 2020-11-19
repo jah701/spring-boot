@@ -1,20 +1,24 @@
 package com.spring.boot.util;
 
-import com.spring.boot.model.Review;
+import com.spring.boot.dto.Review;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.Instant;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CustomCsvParserImpl implements CustomCsvParser {
-    private CSVFormat format;
-    private CSVParser csvParser;
-
     @Override
     public List<Review> csvToReview(String path) {
+        CSVFormat format;
+        CSVParser csvParser;
+
         List<Review> result = new ArrayList<>();
         try {
             format = CSVFormat.RFC4180.withHeader().withDelimiter(',');
@@ -30,7 +34,10 @@ public class CustomCsvParserImpl implements CustomCsvParser {
             review.setHelpfulnessNumerator(record.get("HelpfulnessNumerator"));
             review.setHelpfulnessDenominator(record.get("HelpfulnessDenominator"));
             review.setScore(Long.parseLong(record.get("Score")));
-            review.setTime(Long.parseLong(record.get("Time")));
+            review.setTime(Instant.ofEpochMilli(
+                    Long.parseLong(record.get("Time")))
+                    .atZone(ZoneId.systemDefault())
+                    .toLocalDateTime());
             review.setSummary(record.get("Summary"));
             review.setText(record.get("Text"));
 
