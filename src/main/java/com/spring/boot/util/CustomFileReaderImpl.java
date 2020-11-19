@@ -12,13 +12,12 @@ public class CustomFileReaderImpl implements CustomFileReader {
     public List<String> readFile(String path) {
         List<String> result = new ArrayList<>();
         String line;
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(path));
+        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
             while ((line = reader.readLine()) != null) {
                 result.add(line);
             }
         } catch (FileNotFoundException e) {
-            throw new RuntimeException("Wrong file path", e);
+            throw new RuntimeException("Wrong file path " + path, e);
         } catch (IOException e) {
             throw new RuntimeException("Failed while reading file", e);
         }
