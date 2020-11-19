@@ -31,11 +31,11 @@ public class StartupEvent implements ApplicationListener<ApplicationReadyEvent> 
     }
 
     public boolean loadCsvFile(String url, String intoPath) {
-        try (BufferedInputStream in = new BufferedInputStream(new URL(url).openStream());
+        try (BufferedInputStream urlReader = new BufferedInputStream(new URL(url).openStream());
                 FileOutputStream fileOutputStream = new FileOutputStream(intoPath)) {
             byte[] dataBuffer = new byte[1024];
             int bytesRead;
-            while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
+            while ((bytesRead = urlReader.read(dataBuffer)) != -1) {
                 fileOutputStream.write(dataBuffer, 0, bytesRead);
             }
         } catch (IOException e) {

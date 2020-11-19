@@ -21,8 +21,7 @@ class CustomFileReaderImplTest {
     public void wrongPathTest() {
         Assertions.assertThrows(RuntimeException.class,() -> customFileReader.readFile(WRONG_PATH));
     }
-
-    @Test
+  
     public void correctPathTest() {
         Assertions.assertEquals(10, customFileReader.readFile(CORRECT_PATH).size());
     }
