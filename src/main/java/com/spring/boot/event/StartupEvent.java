@@ -1,6 +1,7 @@
 package com.spring.boot.event;
 
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -18,11 +19,15 @@ public class StartupEvent implements ApplicationListener<ApplicationReadyEvent> 
     @Value("${load.into.path}")
     private String loadedFile;
 
+    private File existFile;
+
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
-        log.info("Startup Event method onApplicationEvent() started . . .");
-        loadCsvFile(csvFileUrl, loadedFile);
-        log.info("Startup Event method onApplicationEvent() finished successfully");
+        if (!(existFile = new File(loadedFile)).exists()) {
+            log.info("Loading CSV file. URL - " + csvFileUrl);
+            customCsvLoader.loadCsvFile(csvFileUrl, loadedFile);
+            log.info("CSV file has been loaded successfully");
+        }
     }
 
     public boolean loadCsvFile(String url, String intoPath) {
