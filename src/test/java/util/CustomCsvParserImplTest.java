@@ -3,6 +3,7 @@ package util;
 import com.spring.boot.dto.Review;
 import com.spring.boot.util.CustomCsvParser;
 import com.spring.boot.util.CustomCsvParserImpl;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -36,7 +37,8 @@ class CustomCsvParserImplTest {
         List<Review> reviews = customCsvParser.csvToReview(FILE_CSV);
         Review review = reviews.get(0);
         Assertions.assertEquals("delmartian", review.getProfileName());
-        Assertions.assertEquals(1303862400, review.getTime());
+        Assertions.assertEquals(LocalDateTime.of(1970, 1, 16, 5, 11, 2, 400000000),
+                review.getTime());
         Assertions.assertEquals("A3SGXH7AUHU8GW", review.getUserId());
     }
 }
