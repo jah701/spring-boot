@@ -36,7 +36,7 @@ public class CustomCsvParserImpl implements CustomCsvParser {
             review.setScore(Long.parseLong(record.get("Score")));
             review.setTime(Instant.ofEpochMilli(
                     Long.parseLong(record.get("Time")))
-                    .atZone(ZoneId.systemDefault())
+                    .atZone(ZoneId.of("Europe/Kiev"))
                     .toLocalDateTime());
             review.setSummary(record.get("Summary"));
             review.setText(record.get("Text"));
