@@ -34,9 +34,11 @@ class CustomCsvParserImplTest {
     @Test
     public void testCreatedFromCsvObjects() {
         List<Review> reviews = customCsvParser.csvToReview(FILE_CSV);
-        Review review = reviews.get(0);
-        Assertions.assertEquals("delmartian", review.getProfileName());
-        Assertions.assertEquals(1303862400, review.getTime());
-        Assertions.assertEquals("A3SGXH7AUHU8GW", review.getUserId());
+        Review review = reviews.get(1);
+        Assertions.assertEquals("dll pa", review.getProfileName());
+        Assertions.assertEquals(LocalDateTime.of(1970, 1, 16, 17, 9, 36),
+                review.getTime());
+        Assertions.assertEquals("A1D87F6ZCVE5NK", review.getUserId());
+
     }
 }

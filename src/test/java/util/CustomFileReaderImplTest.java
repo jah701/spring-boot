@@ -6,8 +6,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
 class CustomFileReaderImplTest {
     private static final String WRONG_PATH = "";
     private static final String EMPTY_PATH =
