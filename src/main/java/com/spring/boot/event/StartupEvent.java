@@ -14,7 +14,6 @@ import com.spring.boot.service.mapper.ProductMapper;
 import com.spring.boot.service.mapper.UserMapper;
 import com.spring.boot.util.CustomCsvLoader;
 import com.spring.boot.util.CustomCsvParser;
-
 import java.io.File;
 import java.util.List;
 import lombok.extern.log4j.Log4j;
@@ -66,14 +65,14 @@ public class StartupEvent implements ApplicationListener<ApplicationReadyEvent> 
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
-        File existFile;
-
         log.info("Injecting roles. . .");
         Role user = Role.of("USER");
         Role admin = Role.of("ADMIN");
         roleService.add(user);
         roleService.add(admin);
         log.info("Roles have been added successfully");
+
+        File existFile;
 
         if (!(existFile = new File(loadedFile)).exists()) {
             log.info("Loading CSV file. URL - " + csvFileUrl);

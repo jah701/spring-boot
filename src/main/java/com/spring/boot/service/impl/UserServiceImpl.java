@@ -1,10 +1,10 @@
 package com.spring.boot.service.impl;
 
-import java.util.List;
-import java.util.Optional;
 import com.spring.boot.model.User;
 import com.spring.boot.repository.UserRepository;
 import com.spring.boot.service.UserService;
+import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +31,4 @@ public class UserServiceImpl implements UserService {
     public List<Optional<User>> getMostActiveUsers() {
         return null;
     }
-
-
 }
