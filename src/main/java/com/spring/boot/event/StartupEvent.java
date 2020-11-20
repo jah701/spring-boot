@@ -14,6 +14,8 @@ import com.spring.boot.service.mapper.ProductMapper;
 import com.spring.boot.service.mapper.UserMapper;
 import com.spring.boot.util.CustomCsvLoader;
 import com.spring.boot.util.CustomCsvParser;
+
+import java.io.File;
 import java.util.List;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,6 +66,8 @@ public class StartupEvent implements ApplicationListener<ApplicationReadyEvent> 
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
+        File existFile;
+
         log.info("Injecting roles. . .");
         Role user = Role.of("USER");
         Role admin = Role.of("ADMIN");
@@ -71,9 +75,11 @@ public class StartupEvent implements ApplicationListener<ApplicationReadyEvent> 
         roleService.add(admin);
         log.info("Roles have been added successfully");
 
-        log.info("Loading CSV shortFile. URL - " + csvFileUrl);
-        //customCsvLoader.loadCsvFile(csvFileUrl, loadedFile);
-        log.info("CSV shortFile has been loaded successfully");
+        if (!(existFile = new File(loadedFile)).exists()) {
+            log.info("Loading CSV file. URL - " + csvFileUrl);
+            customCsvLoader.loadCsvFile(csvFileUrl, loadedFile);
+            log.info("CSV file has been loaded successfully");
+        }
 
         log.info("Starting shortFile parsing. . .");
         List<Review> reviews = customCsvParser.csvToReview(shortFile);
