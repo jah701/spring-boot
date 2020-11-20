@@ -1,8 +1,6 @@
-HELP.md
 target/
 src/main/resources/loaded-file.csv
 *.log
-.mvn/*
 *.cmd
 .idea
 *.iml
