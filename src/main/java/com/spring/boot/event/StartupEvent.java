@@ -64,8 +64,6 @@ public class StartupEvent implements ApplicationListener<ApplicationReadyEvent> 
         this.productMapper = productMapper;
     }
 
-    private File existFile;
-
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
         log.info("Injecting roles. . .");
@@ -75,7 +73,7 @@ public class StartupEvent implements ApplicationListener<ApplicationReadyEvent> 
         roleService.add(admin);
         log.info("Roles have been added successfully");
 
-        if (!(existFile = new File(loadedFile)).exists()) {
+        if (!new File(loadedFile).exists()) {
             log.info("Loading CSV file. URL - " + csvFileUrl);
             customCsvLoader.loadCsvFile(csvFileUrl, loadedFile);
             log.info("CSV file has been loaded successfully");

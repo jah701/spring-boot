@@ -24,8 +24,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getMostActiveUsers() {
-        return userRepository.getMostActiveUsers()
+    public List<User> getMostActiveUsers(int amount) {
+        return userRepository.getMostActiveUsers(amount)
                 .stream()
                 .map(user -> user.get())
                 .collect(Collectors.toList())

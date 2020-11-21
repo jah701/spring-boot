@@ -12,7 +12,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "SELECT * FROM Users u "
             + "WHERE u.helpfulness_Numerator > '0' "
             + "ORDER BY u.helpfulness_Numerator DESC "
-            + "LIMIT 1000"
+            + "LIMIT 'amount'"
             , nativeQuery = true)
-    List<Optional<User>> getMostActiveUsers();
+    List<Optional<User>> getMostActiveUsers(int amount);
 }
