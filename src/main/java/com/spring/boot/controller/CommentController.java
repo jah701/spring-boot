@@ -18,7 +18,7 @@ public class CommentController {
         this.commentService = commentService;
     }
 
-    @GetMapping("/words/{amount}")
+    @GetMapping("/most_used_words/{amount}")
     public List<String> getMostUsedWords(@PathVariable int amount) {
         return commentService.getMostUsedWordsFromComments(amount);
     }

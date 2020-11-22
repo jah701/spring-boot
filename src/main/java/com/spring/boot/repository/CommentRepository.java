@@ -1,11 +1,11 @@
 package com.spring.boot.repository;
 
 import com.spring.boot.model.Comment;
+import java.util.List;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
@@ -13,7 +13,7 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
             + "WHERE c.productId = ?1")
     List<Optional<Comment>> getProductComments(String productId);
 
-    @Query(value = "SELECT c.summary, c.text FROM comments c",
+    @Query(value = "SELECT c.summary, c.text FROM Comments c",
             nativeQuery = true)
     List<String> getAllWords();
 }
