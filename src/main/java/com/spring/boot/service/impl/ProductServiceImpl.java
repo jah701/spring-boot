@@ -22,8 +22,8 @@ public class ProductServiceImpl implements ProductService {
         productRepository.save(product);
     }
 
-//    @Override
-//    public List<String> getMostCommentedProducts() {
-//        return productRepository.getMostCommentedProducts();
-//    }
+    @Override
+    public List<String> getMostCommentedProducts(int amount) {
+        return productRepository.getMostCommentedProducts(amount);
+    }
 }

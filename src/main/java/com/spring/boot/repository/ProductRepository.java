@@ -9,7 +9,9 @@ import java.util.List;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-//    @Query(value = "SELECT count()",
-//            nativeQuery = true)
-//    List<String> getMostCommentedProducts();
+    @Query(value = "SELECT c.product_id FROM comments c "
+            + "GROUP BY c.product_id "
+            + "ORDER BY count(c.product_id) DESC "
+            + "LIMIT ?1", nativeQuery = true)
+    List<String> getMostCommentedProducts(int amount);
 }

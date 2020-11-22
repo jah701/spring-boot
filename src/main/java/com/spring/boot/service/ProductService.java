@@ -7,5 +7,5 @@ import java.util.List;
 public interface ProductService {
     void add(Product product);
 
-//    List<String> getMostCommentedProducts();
+    List<String> getMostCommentedProducts(int amount);
 }

@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import lombok.Data;
 
@@ -19,7 +19,7 @@ public class Product {
     private Long id;
     @Column(name = "product_id")
     private String externalId;
-    @OneToMany
+    @ManyToMany
     @Column(name = "comment_id")
     private List<Comment> comments;
 }
