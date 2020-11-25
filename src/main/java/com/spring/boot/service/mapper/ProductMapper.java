@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ProductMapper {
-    public Product map(Review review) {
+    public Product mapToProduct(Review review) {
         Product product = new Product();
         product.setExternalId(review.getProductId());
         return product;
@@ -16,7 +16,7 @@ public class ProductMapper {
 
     public List<Product> mapAll(List<Review> reviews) {
         return reviews.stream()
-                .map(this::map)
+                .map(this::mapToProduct)
                 .collect(Collectors.toList());
     }
 }

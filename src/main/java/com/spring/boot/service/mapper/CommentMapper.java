@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CommentMapper {
-    public Comment map(Review review) {
+    public Comment mapToComment(Review review) {
         Comment comment = new Comment();
         comment.setUserId(review.getUserId());
         comment.setScore(review.getScore());
@@ -20,7 +20,7 @@ public class CommentMapper {
 
     public List<Comment> mapAll(List<Review> reviews) {
         return reviews.stream()
-                .map(this::map)
+                .map(this::mapToComment)
                 .collect(Collectors.toList());
     }
 }
