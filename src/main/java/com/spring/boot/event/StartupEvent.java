@@ -14,7 +14,6 @@ import com.spring.boot.service.mapper.ProductMapper;
 import com.spring.boot.service.mapper.UserMapper;
 import com.spring.boot.util.CustomCsvLoader;
 import com.spring.boot.util.CustomCsvParser;
-
 import java.io.File;
 import java.util.List;
 import lombok.extern.log4j.Log4j;
@@ -77,6 +76,8 @@ public class StartupEvent implements ApplicationListener<ApplicationReadyEvent> 
             log.info("Loading CSV file. URL - " + csvFileUrl);
             customCsvLoader.loadCsvFile(csvFileUrl, loadedFile);
             log.info("CSV file has been loaded successfully");
+        } else {
+            log.info("File " + loadedFile + " already exists. Download omitted.");
         }
 
         log.info("Starting file parsing. . .");

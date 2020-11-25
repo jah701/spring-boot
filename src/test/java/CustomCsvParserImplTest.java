@@ -1,6 +1,6 @@
-package com.spring.boot.util;
-
 import com.spring.boot.model.dto.Review;
+import com.spring.boot.util.CustomCsvParser;
+import com.spring.boot.util.CustomCsvParserImpl;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -26,7 +26,7 @@ class CustomCsvParserImplTest {
     @Test
     public void countLinesFromFileTest() {
         List<Review> reviews = customCsvParser.csvToReview(FILE_CSV);
-        Assertions.assertEquals(9, reviews.size());
+        Assertions.assertEquals(11, reviews.size());
     }
 
     @Test
