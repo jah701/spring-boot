@@ -22,7 +22,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void addAll(List<Product> products) {
-        productRepository.saveAll(products);
+    public List<String> getMostCommentedProducts(int amount) {
+        return productRepository.getMostCommentedProducts(amount);
     }
 }

@@ -2,21 +2,31 @@ package com.spring.boot.service.mapper;
 
 import com.spring.boot.model.Product;
 import com.spring.boot.model.dto.Review;
+import com.spring.boot.service.CommentService;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ProductMapper {
-    public Product mapToProduct(Review review) {
+    private final CommentService commentService;
+
+    @Autowired
+    public ProductMapper(CommentService commentService) {
+        this.commentService = commentService;
+    }
+
+    public Product map(Review review) {
         Product product = new Product();
         product.setExternalId(review.getProductId());
+        product.setComments(commentService.getProductComments(review.getProductId()));
         return product;
     }
 
     public List<Product> mapAll(List<Review> reviews) {
         return reviews.stream()
-                .map(this::mapToProduct)
+                .map(this::map)
                 .collect(Collectors.toList());
     }
 }

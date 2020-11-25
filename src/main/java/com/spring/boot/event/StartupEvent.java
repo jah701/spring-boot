@@ -31,7 +31,7 @@ public class StartupEvent implements ApplicationListener<ApplicationReadyEvent> 
     @Value("${load.into.path}")
     private String loadedFile;
     @Value("${file.from.path}")
-    private String shortFile;
+    private String file;
 
     private final RoleService roleService;
     private final UserService userService;
@@ -72,28 +72,28 @@ public class StartupEvent implements ApplicationListener<ApplicationReadyEvent> 
         roleService.add(admin);
         log.info("Roles have been added successfully");
 
-        File existFile;
-
-        if (!(existFile = new File(loadedFile)).exists()) {
+        if (!new File(loadedFile).exists()) {
             log.info("Loading CSV file. URL - " + csvFileUrl);
             customCsvLoader.loadCsvFile(csvFileUrl, loadedFile);
             log.info("CSV file has been loaded successfully");
+        } else {
+            log.info("File " + loadedFile + " already exists. Download omitted.");
         }
 
-        log.info("Starting shortFile parsing. . .");
-        List<Review> reviews = customCsvParser.csvToReview(shortFile);
+        log.info("Starting file parsing. . .");
+        List<Review> reviews = customCsvParser.csvToReview(file);
         log.info("File has been parsed");
 
         List<User> users = userMapper.mapAll(reviews);
-        userService.addAll(users);
+        users.forEach(userService::add);
         log.info("Users have been added");
 
         List<Comment> comments = commentMapper.mapAll(reviews);
-        commentService.addAll(comments);
+        comments.forEach(commentService::add);
         log.info("Comments have been added");
 
         List<Product> products = productMapper.mapAll(reviews);
-        productService.addAll(products);
+        products.forEach(productService::add);
         log.info("Products have been added");
     }
 }

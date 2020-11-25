@@ -17,6 +17,8 @@ public class Comment {
     private Long id;
     @Column(name = "user_id")
     private String userId;
+    @Column(name = "product_id")
+    private String productId;
     private Long score;
     private Long time;
     @Column(length = 5000)
