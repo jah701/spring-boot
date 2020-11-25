@@ -1,9 +1,14 @@
 package com.spring.boot.model;
 
-import javax.persistence.*;
-
-import lombok.Data;
 import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import lombok.Data;
 
 @Data
 @Entity
@@ -14,7 +19,7 @@ public class Product {
     private Long id;
     @Column(name = "product_id")
     private String externalId;
-    @OneToMany
+    @ManyToMany
     @Column(name = "comment_id")
     private List<Comment> comments;
 }

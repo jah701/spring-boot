@@ -2,10 +2,9 @@ package com.spring.boot.service.mapper;
 
 import com.spring.boot.model.Product;
 import com.spring.boot.model.dto.Review;
+import com.spring.boot.service.CommentService;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import com.spring.boot.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
