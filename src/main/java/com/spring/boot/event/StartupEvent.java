@@ -76,6 +76,8 @@ public class StartupEvent implements ApplicationListener<ApplicationReadyEvent> 
             log.info("Loading CSV file. URL - " + csvFileUrl);
             customCsvLoader.loadCsvFile(csvFileUrl, loadedFile);
             log.info("CSV file has been loaded successfully");
+        } else {
+            log.info("File " + loadedFile + " already exists. Download omitted.");
         }
 
         log.info("Starting file parsing. . .");

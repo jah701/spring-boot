@@ -26,7 +26,7 @@ class CustomCsvParserImplTest {
     @Test
     public void countLinesFromFileTest() {
         List<Review> reviews = customCsvParser.csvToReview(FILE_CSV);
-        Assertions.assertEquals(9, reviews.size());
+        Assertions.assertEquals(11, reviews.size());
     }
 
     @Test
