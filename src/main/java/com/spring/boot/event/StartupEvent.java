@@ -1,11 +1,23 @@
 package com.spring.boot.event;
 
-import java.io.BufferedInputStream;
+import com.spring.boot.model.Comment;
+import com.spring.boot.model.Product;
+import com.spring.boot.model.Role;
+import com.spring.boot.model.User;
+import com.spring.boot.model.dto.Review;
+import com.spring.boot.service.CommentService;
+import com.spring.boot.service.ProductService;
+import com.spring.boot.service.RoleService;
+import com.spring.boot.service.UserService;
+import com.spring.boot.service.mapper.CommentMapper;
+import com.spring.boot.service.mapper.ProductMapper;
+import com.spring.boot.service.mapper.UserMapper;
+import com.spring.boot.util.CustomCsvLoader;
+import com.spring.boot.util.CustomCsvParser;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.net.URL;
+import java.util.List;
 import lombok.extern.log4j.Log4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
@@ -18,28 +30,70 @@ public class StartupEvent implements ApplicationListener<ApplicationReadyEvent> 
     private String csvFileUrl;
     @Value("${load.into.path}")
     private String loadedFile;
+    @Value("${file.from.path}")
+    private String shortFile;
+
+    private final RoleService roleService;
+    private final UserService userService;
+    private final ProductService productService;
+    private final CommentService commentService;
+    private final CustomCsvLoader customCsvLoader;
+    private final CustomCsvParser customCsvParser;
+    private final UserMapper userMapper;
+    private final CommentMapper commentMapper;
+    private final ProductMapper productMapper;
+
+    @Autowired
+    public StartupEvent(RoleService roleService,
+                        UserService userService,
+                        ProductService productService,
+                        CommentService commentService, CustomCsvLoader customCsvLoader,
+                        CustomCsvParser customCsvParser,
+                        UserMapper userMapper,
+                        CommentMapper commentMapper,
+                        ProductMapper productMapper) {
+        this.roleService = roleService;
+        this.commentService = commentService;
+        this.customCsvLoader = customCsvLoader;
+        this.customCsvParser = customCsvParser;
+        this.userService = userService;
+        this.productService = productService;
+        this.userMapper = userMapper;
+        this.commentMapper = commentMapper;
+        this.productMapper = productMapper;
+    }
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
-        File existFile = null;
+        log.info("Injecting roles. . .");
+        Role user = Role.of("USER");
+        Role admin = Role.of("ADMIN");
+        roleService.add(user);
+        roleService.add(admin);
+        log.info("Roles have been added successfully");
+
+        File existFile;
+
         if (!(existFile = new File(loadedFile)).exists()) {
             log.info("Loading CSV file. URL - " + csvFileUrl);
-            loadCsvFile(csvFileUrl, loadedFile);
+            customCsvLoader.loadCsvFile(csvFileUrl, loadedFile);
             log.info("CSV file has been loaded successfully");
         }
-    }
 
-    public boolean loadCsvFile(String url, String intoPath) {
-        try (BufferedInputStream urlReader = new BufferedInputStream(new URL(url).openStream());
-                FileOutputStream fileOutputStream = new FileOutputStream(intoPath)) {
-            byte[] dataBuffer = new byte[1024];
-            int bytesRead;
-            while ((bytesRead = urlReader.read(dataBuffer)) != -1) {
-                fileOutputStream.write(dataBuffer, 0, bytesRead);
-            }
-        } catch (IOException e) {
-            throw new RuntimeException("Can't load CSV file from: ' " + url + " '", e);
-        }
-        return true;
+        log.info("Starting shortFile parsing. . .");
+        List<Review> reviews = customCsvParser.csvToReview(shortFile);
+        log.info("File has been parsed");
+
+        List<User> users = userMapper.mapAll(reviews);
+        userService.addAll(users);
+        log.info("Users have been added");
+
+        List<Comment> comments = commentMapper.mapAll(reviews);
+        commentService.addAll(comments);
+        log.info("Comments have been added");
+
+        List<Product> products = productMapper.mapAll(reviews);
+        productService.addAll(products);
+        log.info("Products have been added");
     }
 }
