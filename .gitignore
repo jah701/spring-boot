@@ -1,6 +1,6 @@
 target/
+src/main/resources/loaded-file.csv
 *.log
 *.cmd
+.idea
 *.iml
-.idea/
-src/main/resources/loaded-file.csv
