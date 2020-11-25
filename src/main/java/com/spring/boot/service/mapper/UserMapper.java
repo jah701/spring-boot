@@ -18,7 +18,7 @@ public class UserMapper {
         this.roleService = roleService;
     }
 
-    public User map(Review review) {
+    public User mapToUser(Review review) {
         User user = new User();
         user.setName(review.getProfileName());
         user.setPassword("1111");
@@ -31,7 +31,7 @@ public class UserMapper {
 
     public List<User> mapAll(List<Review> reviews) {
         return reviews.stream()
-                .map(this::map)
+                .map(this::mapToUser)
                 .collect(Collectors.toList());
     }
 }

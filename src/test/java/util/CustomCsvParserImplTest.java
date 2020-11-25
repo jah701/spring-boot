@@ -1,6 +1,8 @@
-package com.spring.boot.util;
+package util;
 
 import com.spring.boot.model.dto.Review;
+import com.spring.boot.util.CustomCsvParser;
+import com.spring.boot.util.CustomCsvParserImpl;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -8,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 class CustomCsvParserImplTest {
     private static final String WRONG_PATH = "";
-    private static final String FILE_CSV = "src/main/resources/file.csv";
+    private static final String FILE_CSV = "src/test/java/resources/file.csv";
 
     private static CustomCsvParser customCsvParser;
 

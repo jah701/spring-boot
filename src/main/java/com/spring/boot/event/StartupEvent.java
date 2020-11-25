@@ -31,7 +31,7 @@ public class StartupEvent implements ApplicationListener<ApplicationReadyEvent> 
     @Value("${load.into.path}")
     private String loadedFile;
     @Value("${file.from.path}")
-    private String file;
+    private String shortFile;
 
     private final RoleService roleService;
     private final UserService userService;
@@ -80,20 +80,20 @@ public class StartupEvent implements ApplicationListener<ApplicationReadyEvent> 
             log.info("File " + loadedFile + " already exists. Download omitted.");
         }
 
-        log.info("Starting file parsing. . .");
-        List<Review> reviews = customCsvParser.csvToReview(file);
+        log.info("Starting shortFile parsing. . .");
+        List<Review> reviews = customCsvParser.csvToReview(shortFile);
         log.info("File has been parsed");
 
         List<User> users = userMapper.mapAll(reviews);
-        users.forEach(userService::add);
+        userService.addAll(users);
         log.info("Users have been added");
 
         List<Comment> comments = commentMapper.mapAll(reviews);
-        comments.forEach(commentService::add);
+        commentService.addAll(comments);
         log.info("Comments have been added");
 
         List<Product> products = productMapper.mapAll(reviews);
-        products.forEach(productService::add);
+        productService.addAll(products);
         log.info("Products have been added");
     }
 }
