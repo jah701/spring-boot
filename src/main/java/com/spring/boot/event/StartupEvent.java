@@ -4,11 +4,13 @@ import com.spring.boot.model.Comment;
 import com.spring.boot.model.Product;
 import com.spring.boot.model.Role;
 import com.spring.boot.model.User;
+import com.spring.boot.model.Word;
 import com.spring.boot.model.dto.Review;
 import com.spring.boot.service.CommentService;
 import com.spring.boot.service.ProductService;
 import com.spring.boot.service.RoleService;
 import com.spring.boot.service.UserService;
+import com.spring.boot.service.WordService;
 import com.spring.boot.service.mapper.CommentMapper;
 import com.spring.boot.service.mapper.ProductMapper;
 import com.spring.boot.service.mapper.UserMapper;
@@ -42,6 +44,7 @@ public class StartupEvent implements ApplicationListener<ApplicationReadyEvent> 
     private final UserMapper userMapper;
     private final CommentMapper commentMapper;
     private final ProductMapper productMapper;
+    private final WordService wordService;
 
     @Autowired
     public StartupEvent(RoleService roleService,
@@ -51,7 +54,7 @@ public class StartupEvent implements ApplicationListener<ApplicationReadyEvent> 
                         CustomCsvParser customCsvParser,
                         UserMapper userMapper,
                         CommentMapper commentMapper,
-                        ProductMapper productMapper) {
+                        ProductMapper productMapper, WordService wordService) {
         this.roleService = roleService;
         this.commentService = commentService;
         this.customCsvLoader = customCsvLoader;
@@ -61,6 +64,7 @@ public class StartupEvent implements ApplicationListener<ApplicationReadyEvent> 
         this.userMapper = userMapper;
         this.commentMapper = commentMapper;
         this.productMapper = productMapper;
+        this.wordService = wordService;
     }
 
     @Override
@@ -84,6 +88,7 @@ public class StartupEvent implements ApplicationListener<ApplicationReadyEvent> 
         List<Review> reviews = customCsvParser.csvToReview(file);
         log.info("File has been parsed");
 
+        log.info("Injecting entities. . .");
         List<User> users = userMapper.mapAll(reviews);
         users.forEach(userService::add);
         log.info("Users have been added");
@@ -95,5 +100,10 @@ public class StartupEvent implements ApplicationListener<ApplicationReadyEvent> 
         List<Product> products = productMapper.mapAll(reviews);
         products.forEach(productService::add);
         log.info("Products have been added");
+
+        List<Word> mappedWords = wordService.getAllMappedWords();
+        mappedWords.forEach(wordService::add);
+        log.info("Words have been added");
+        log.info("All entities have been added successfully");
     }
 }

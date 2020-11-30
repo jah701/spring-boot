@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UserMapper {
+    private static final String USER_ROLE = "USER";
+    private static final String DEFAULT_PASSWORD = "1111";
     private final RoleService roleService;
 
     @Autowired
@@ -21,11 +23,11 @@ public class UserMapper {
     public User map(Review review) {
         User user = new User();
         user.setName(review.getProfileName());
-        user.setPassword("1111");
+        user.setPassword(DEFAULT_PASSWORD);
         user.setExternalId(review.getUserId());
-        user.setHelpfulnessNumerator(review.getHelpfulnessNumerator());
-        user.setHelpfulnessDenominator(review.getHelpfulnessDenominator());
-        user.setRoles(Set.of(roleService.getByRoleName("USER")));
+        user.setHelpfulnessNumerator(Long.valueOf(review.getHelpfulnessNumerator()));
+        user.setHelpfulnessDenominator(Long.valueOf(review.getHelpfulnessDenominator()));
+        user.setRoles(Set.of(roleService.getByRoleName(USER_ROLE)));
         return user;
     }
 

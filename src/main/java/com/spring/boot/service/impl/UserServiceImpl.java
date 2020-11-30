@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -25,7 +26,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getMostActiveUsers(int amount) {
-        return userRepository.getMostActiveUsers(amount)
+        return userRepository.getMostActiveUsers(PageRequest.of(0, amount))
                 .stream()
                 .map(Optional::get)
                 .collect(Collectors.toList());

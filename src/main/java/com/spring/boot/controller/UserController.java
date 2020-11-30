@@ -19,7 +19,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/most_active/{amount}")
+    @GetMapping("/most-active/{amount}")
     public List<User> getMostActiveUsers(@PathVariable int amount) {
         return userService.getMostActiveUsers(amount);
     }

@@ -18,7 +18,7 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @GetMapping("/most_commented/{amount}")
+    @GetMapping("/most-commented/{amount}")
     public List<String> getMostCommentedProducts(@PathVariable int amount) {
         return productService.getMostCommentedProducts(amount);
     }
