@@ -5,6 +5,7 @@ import com.spring.boot.repository.ProductRepository;
 import com.spring.boot.service.ProductService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,7 +23,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void addAll(List<Product> products) {
-        productRepository.saveAll(products);
+    public List<String> getMostCommentedProducts(int amount) {
+        return productRepository.getMostCommentedProducts(PageRequest.of(0, amount));
     }
 }

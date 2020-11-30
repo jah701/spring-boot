@@ -6,5 +6,5 @@ import java.util.List;
 public interface CommentService {
     void add(Comment comment);
 
-    void addAll(List<Comment> comments);
+    List<Comment> getProductComments(String productId);
 }

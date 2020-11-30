@@ -6,5 +6,5 @@ import java.util.List;
 public interface ProductService {
     void add(Product product);
 
-    void addAll(List<Product> products);
+    List<String> getMostCommentedProducts(int amount);
 }

@@ -5,7 +5,9 @@ import com.spring.boot.repository.UserRepository;
 import com.spring.boot.service.UserService;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,12 +25,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addAll(List<User> users) {
-        userRepository.saveAll(users);
-    }
-
-    @Override
-    public List<Optional<User>> getMostActiveUsers() {
-        return null;
+    public List<User> getMostActiveUsers(int amount) {
+        return userRepository.getMostActiveUsers(PageRequest.of(0, amount))
+                .stream()
+                .map(Optional::get)
+                .collect(Collectors.toList());
     }
 }

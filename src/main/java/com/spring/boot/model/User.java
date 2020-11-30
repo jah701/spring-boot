@@ -22,9 +22,9 @@ public class User {
     private String name;
     private String password;
     @Column(name = "helpfulness_numerator")
-    private String helpfulnessNumerator;
+    private Long helpfulnessNumerator;
     @Column(name = "helpfulness_denominator")
-    private String helpfulnessDenominator;
+    private Long helpfulnessDenominator;
     @ManyToMany
     private Set<Role> roles;
 }
