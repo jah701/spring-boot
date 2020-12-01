@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
     @Query(value = "SELECT c FROM Comment c "
-            + "WHERE c.productId = ?1")
+            + "WHERE c.productId = ?1 "
+            + "ORDER BY c.productId DESC")
     List<Comment> getProductComments(String productId);
 }

@@ -9,7 +9,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface WordRepository extends JpaRepository<Word, Long> {
-    @Query(value = "SELECT w FROM Word w")
+    @Query(value = "SELECT w FROM Word w "
+            + "ORDER BY w.amount DESC")
     List<Word> getMostUsedWords(Pageable pageable);
 
     @Query(value = "SELECT c.summary, c.text FROM Comment c")
