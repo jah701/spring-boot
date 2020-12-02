@@ -12,6 +12,11 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "SELECT u FROM User u "
             + "WHERE u.helpfulnessNumerator > 0 "
-            + "ORDER BY u.helpfulnessNumerator DESC")
+            + "ORDER BY u.helpfulnessNumerator DESC, u.id DESC")
     List<Optional<User>> getMostActiveUsers(Pageable pageable);
+
+    @Query(value = "SELECT u FROM User u "
+            + "JOIN FETCH u.roles "
+            + "WHERE u.name = ?1")
+    Optional<User> findUserByName(String name);
 }

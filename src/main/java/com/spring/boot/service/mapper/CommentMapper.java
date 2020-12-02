@@ -1,14 +1,14 @@
 package com.spring.boot.service.mapper;
 
+import com.spring.boot.dto.ReviewDto;
 import com.spring.boot.model.Comment;
-import com.spring.boot.model.dto.Review;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CommentMapper {
-    public Comment map(Review review) {
+    public Comment reviewDtoToComment(ReviewDto review) {
         Comment comment = new Comment();
         comment.setUserId(review.getUserId());
         comment.setScore(review.getScore());
@@ -19,9 +19,9 @@ public class CommentMapper {
         return comment;
     }
 
-    public List<Comment> mapAll(List<Review> reviews) {
+    public List<Comment> mapAll(List<ReviewDto> reviews) {
         return reviews.stream()
-                .map(this::map)
+                .map(this::reviewDtoToComment)
                 .collect(Collectors.toList());
     }
 }

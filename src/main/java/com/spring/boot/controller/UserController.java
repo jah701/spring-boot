@@ -2,6 +2,7 @@ package com.spring.boot.controller;
 
 import com.spring.boot.model.User;
 import com.spring.boot.service.UserService;
+import java.security.Principal;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,5 +23,10 @@ public class UserController {
     @GetMapping("/most-active/{amount}")
     public List<User> getMostActiveUsers(@PathVariable int amount) {
         return userService.getMostActiveUsers(amount);
+    }
+
+    @GetMapping
+    public Principal retrievePrincipal(Principal principal) {
+        return principal;
     }
 }

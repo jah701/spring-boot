@@ -1,8 +1,11 @@
 package com.spring.boot.util;
 
-import com.spring.boot.model.dto.Review;
+import com.spring.boot.dto.ReviewDto;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.csv.CSVFormat;
@@ -16,8 +19,8 @@ public class CustomCsvParserImpl implements CustomCsvParser {
     private CSVParser csvParser;
 
     @Override
-    public List<Review> csvToReview(String path) {
-        List<Review> result = new ArrayList<>();
+    public List<ReviewDto> csvToReview(String path) {
+        List<ReviewDto> result = new ArrayList<>();
         try {
             format = CSVFormat.RFC4180.withHeader().withDelimiter(',');
             csvParser = new CSVParser(new FileReader(path), format);
@@ -25,14 +28,16 @@ public class CustomCsvParserImpl implements CustomCsvParser {
             throw new RuntimeException("Can't parse file. File path: " + path, e);
         }
         for (CSVRecord record : csvParser) {
-            Review review = new Review();
+            ReviewDto review = new ReviewDto();
             review.setProductId(record.get("ProductId"));
             review.setUserId(record.get("UserId"));
             review.setProfileName(record.get("ProfileName"));
             review.setHelpfulnessNumerator(record.get("HelpfulnessNumerator"));
             review.setHelpfulnessDenominator(record.get("HelpfulnessDenominator"));
             review.setScore(Long.parseLong(record.get("Score")));
-            review.setTime(Long.parseLong(record.get("Time")));
+            review.setTime(LocalDateTime.ofInstant(
+                    Instant.ofEpochMilli(Long.parseLong(record.get("Time"))),
+                        ZoneId.of("Europe/Kiev")));
             review.setSummary(record.get("Summary"));
             review.setText(record.get("Text"));
 

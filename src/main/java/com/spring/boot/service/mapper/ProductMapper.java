@@ -1,7 +1,7 @@
 package com.spring.boot.service.mapper;
 
+import com.spring.boot.dto.ReviewDto;
 import com.spring.boot.model.Product;
-import com.spring.boot.model.dto.Review;
 import com.spring.boot.service.CommentService;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,16 +17,16 @@ public class ProductMapper {
         this.commentService = commentService;
     }
 
-    public Product map(Review review) {
+    public Product reviewDtoToProduct(ReviewDto review) {
         Product product = new Product();
         product.setExternalId(review.getProductId());
         product.setComments(commentService.getProductComments(review.getProductId()));
         return product;
     }
 
-    public List<Product> mapAll(List<Review> reviews) {
+    public List<Product> mapAll(List<ReviewDto> reviews) {
         return reviews.stream()
-                .map(this::map)
+                .map(this::reviewDtoToProduct)
                 .collect(Collectors.toList());
     }
 }
