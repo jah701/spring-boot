@@ -1,5 +1,6 @@
 package com.spring.boot.model;
 
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,7 +21,7 @@ public class Comment {
     @Column(name = "product_id")
     private String productId;
     private Long score;
-    private Long time;
+    private LocalDateTime time;
     @Column(length = 5000)
     private String summary;
     @Column(length = 5000)

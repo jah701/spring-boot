@@ -4,6 +4,7 @@ import com.spring.boot.model.User;
 import com.spring.boot.repository.UserRepository;
 import com.spring.boot.service.UserService;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +31,12 @@ public class UserServiceImpl implements UserService {
                 .stream()
                 .map(Optional::get)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public User findUserByName(String name) {
+        return userRepository.findUserByName(name)
+                .orElseThrow(() -> new NoSuchElementException(
+                        "Can't find user with name " + name));
     }
 }

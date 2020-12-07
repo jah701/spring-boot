@@ -1,8 +1,8 @@
 package com.spring.boot.util;
 
-import com.spring.boot.model.dto.Review;
+import com.spring.boot.dto.ReviewDto;
 import java.util.List;
 
 public interface CustomCsvParser {
-    List<Review> csvToReview(String path);
+    List<ReviewDto> csvToReview(String path);
 }

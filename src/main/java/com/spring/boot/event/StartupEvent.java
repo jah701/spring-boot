@@ -1,11 +1,12 @@
 package com.spring.boot.event;
 
+import com.spring.boot.dto.ReviewDto;
 import com.spring.boot.model.Comment;
 import com.spring.boot.model.Product;
 import com.spring.boot.model.Role;
 import com.spring.boot.model.User;
 import com.spring.boot.model.Word;
-import com.spring.boot.model.dto.Review;
+import com.spring.boot.security.AuthenticationService;
 import com.spring.boot.service.CommentService;
 import com.spring.boot.service.ProductService;
 import com.spring.boot.service.RoleService;
@@ -37,6 +38,7 @@ public class StartupEvent implements ApplicationListener<ApplicationReadyEvent> 
 
     private final RoleService roleService;
     private final UserService userService;
+    private final AuthenticationService authenticationService;
     private final ProductService productService;
     private final CommentService commentService;
     private final CustomCsvLoader customCsvLoader;
@@ -49,13 +51,14 @@ public class StartupEvent implements ApplicationListener<ApplicationReadyEvent> 
     @Autowired
     public StartupEvent(RoleService roleService,
                         UserService userService,
-                        ProductService productService,
+                        AuthenticationService authenticationService, ProductService productService,
                         CommentService commentService, CustomCsvLoader customCsvLoader,
                         CustomCsvParser customCsvParser,
                         UserMapper userMapper,
                         CommentMapper commentMapper,
                         ProductMapper productMapper, WordService wordService) {
         this.roleService = roleService;
+        this.authenticationService = authenticationService;
         this.commentService = commentService;
         this.customCsvLoader = customCsvLoader;
         this.customCsvParser = customCsvParser;
@@ -85,12 +88,12 @@ public class StartupEvent implements ApplicationListener<ApplicationReadyEvent> 
         }
 
         log.info("Starting file parsing. . .");
-        List<Review> reviews = customCsvParser.csvToReview(file);
+        List<ReviewDto> reviews = customCsvParser.csvToReview(file);
         log.info("File has been parsed");
 
         log.info("Injecting entities. . .");
         List<User> users = userMapper.mapAll(reviews);
-        users.forEach(userService::add);
+        users.forEach(authenticationService::register);
         log.info("Users have been added");
 
         List<Comment> comments = commentMapper.mapAll(reviews);

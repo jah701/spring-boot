@@ -7,4 +7,6 @@ public interface UserService {
     void add(User user);
 
     List<User> getMostActiveUsers(int amount);
+
+    User findUserByName(String name);
 }

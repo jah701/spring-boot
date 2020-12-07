@@ -8,10 +8,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "users")
 public class User {
     @Id
@@ -19,6 +25,7 @@ public class User {
     private Long id;
     @Column(name = "external_id")
     private String externalId;
+    @Column(name = "username")
     private String name;
     private String password;
     @Column(name = "helpfulness_numerator")
